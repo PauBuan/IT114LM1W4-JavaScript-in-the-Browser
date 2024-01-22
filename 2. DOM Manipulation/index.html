@@ -30,52 +30,51 @@
         //          - see first 30 minutes of the video
 
         // Todo 2.1 Select the unordered list with the id "subjects-taken"
-        var subjectsList = document.getElementById("subjects-taken");
+        const selectSubjects = document.getElementById('subjects-taken');
+        console.log(selectSubjects);
         // Resource: https://dev.to/alternate_robot/dom-selectors-in-javascript-344i
 
         // Checkpoint 2.1 What are the other ways to select elements in the DOM?
         // Answer: In JavaScript, there are multiple ways to select elements in the DOM (Document Object Model). The `getElementById` method selects an element based on its unique id attribute, while `getElementsByTagName` selects elements based on their tag name. The `getElementsByClassName` method selects elements based on their class name, and `querySelector` allows you to select the first element that matches a specified CSS selector. Similarly, `querySelectorAll` selects all elements that match a specified CSS selector. Lastly, `elementFromPoint` selects the topmost element at specified coordinates. These methods provide flexibility in selecting elements based on various criteria such as id, tag name, class name, CSS selector, or coordinates.
 
         // Todo 2.2 Set the text of the second list item to "IT102 - Python Fundamentals"
-        var listItem = subjectsList.getElementsByTagName("li")[1];
-        listItem.textContent = "IT102 - Python Fundamentals";
+        const subjArray = document.getElementsByTagName('li');
+        
+        subjArray[1].innerHTML = "IT102 - Python Fundamentals";
         // Resource: https://www.javascripttutorial.net/javascript-dom/javascript-get-child-element/
 
         // Checkpoint 3.2 What is the difference between innerText, textContent, and innerHTML. When should you use one over the other?
         // Answer:The difference between `innerText`, `textContent`, and `innerHTML` lies in how they handle the content of HTML elements. `innerText` retrieves and sets the visible text content of an element, `textContent` retrieves and sets the full text content including hidden elements, and `innerHTML` retrieves and sets the HTML content of an element. Use `innerText` when you only need the visible text, `textContent` when you need all the text including hidden elements, and `innerHTML` when you need to manipulate the HTML structure or insert new elements.
 
         // Todo 2.3 Create another list item, and add it as a child of the unordered list
-        var newListItem = document.createElement("li");
-        newListItem.textContent = "Your favorite subject";
-        subjectsList.appendChild(newListItem);
-        //          Set the text of the list item to your favorite subject
+        const subjList = document.querySelector('ul');
+        const addSubj = document.createElement('li');
+        var text = document.createTextNode("CS102-1 - Data Structure and Algorithms");
+        addSubj.appendChild(text);
+        subjList.appendChild(addSubj);
         
         // Resource: https://www.javascripttutorial.net/dom/manipulating/create-a-dom-element/
 
         // Todo 2.4 Set the id attribute of the list item you created to "favorite-subject".
-        newListItem.setAttribute("id", "favorite-subject");
         //          Set the class of the list item to "newly-created"
-        newListItem.classList.add("newly-created");
+        const deletethird = document.querySelectorAll('li')[2];
+        deletethird.remove(deletethird);
 
         // Todo 2.5 Delete the third list item in the unordered list
         // Select the unordered list
         var thirdListItem = subjectsList.getElementsByTagName("li")[2];
         subjectsList.removeChild(thirdListItem);
-
-        // Select the third list item
-        
-
-        // Remove the third list item from the unordered list
-        
         
 
         // Checkpoint 2.3 What is the difference between node and element?
-        // Answer:
+        // Answer:In the context of the Document Object Model (DOM), a "node" and an "element" are distinct entities. An element is a specific type of node within the DOM hierarchy. Nodes represent various parts of the document, such as elements, attributes, and text, forming a tree-like structure. Elements, specifically, represent the HTML or XML tags in a document. Nodes can be of different types, including elements, text nodes, comment nodes, and more. While elements are a subset of nodes, not all nodes are elements. Nodes encapsulate the entire structure of a document, whereas elements focus specifically on the HTML or XML tags and their attributes. Understanding this distinction is crucial when traversing and manipulating the DOM, as different methods and properties may be applicable depending on whether you are working with nodes in general or specifically with elements.
+
 
         // Bonus Todo 2.6 Select the parent of the unordered list.
-        var parentElement = subjectsList.parentNode;
+        var parentName = document.getElementById("subjects-taken").parentElement;
         // Bonus Todo 2.7 Select the previous sibling of the list item you previously created
-        var previousSibling = newListItem.previousElementSibling;
+        var lastNode = document.getElementById("favorite-subject").previousElementSibling;
+        console.log(lastNode);
 
     </script>
 </body>

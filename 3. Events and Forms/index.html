@@ -28,25 +28,22 @@
 </head>
 
 <!-- Todo 3.2a Create a button with the text "Call inline event handler". -->
-<button onclick="console.log('From inline event handler')">Call inline event handler</button>
+<button onclick="inlineEventHandler()">Call inline event handler</button>
 
 <!-- Add an inline event handler that logs "From inline event hanlder" when the button is clicked -->
 <!-- Resource: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#inline_event_handlers_%E2%80%94_dont_use_these
             - See other event listener mechanisms section -->
-<button>Call inline event handler</button>
 
 <!-- Todo 3.3a Create a button with the text "Call addEventListener" -->
-<button>Call addEventListener</button>
+<button id = "addEvent">Call addEventListener</button>
 
 <!-- Todo 3.4a Create a form that accepts the first name and last name of the user -->
 <form>
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required>
-
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required>
-
-    <input type="submit" value="Submit">
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname"><br><br>
+    <button id="submitBtn">Submit Form</button>
 </form>
 
 
@@ -68,19 +65,40 @@
     <script>
         // Todo 3.1 When the page has loaded, log "The page has loaded"
         // Resource: https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
-
+        window.addEventListener("load", (event) => {
+        console.log("page is fully loaded");
+        });
+        function inlineEventHandler(){
+            console.log("From inline event hanlder");
+        }
         // Todo 3.3b Add an event handler for the button created in 2.3a.
         //          The event handler should log "From addEventListener" when the button is clicked
         // Resource: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#using_addeventlistener
         //          - See Using addEventListener() section
+        var btn = document.getElementById('addEvent')
+        btn.addEventListener("click",addEventListener);
+
+        function addEventListener(){
+            console.log("From addEventListener");
+        }
 
         // Checkpoint 3.1 What is the difference between inline event handlers and addEventListener? When should you use one over the other?
-        // Answer: 
+        // Answer: The main difference between inline event handlers and addEventListener lies in how they associate events with elements. Inline event handlers are directly embedded in HTML attributes, while addEventListener is a method in JavaScript that allows dynamic binding of event handlers. Inline event handlers can be limiting and harder to maintain, especially when dealing with multiple events. addEventListener offers a more flexible and organized approach, enabling the attachment of multiple event handlers to a single element and promoting cleaner code separation. Generally, addEventListener is preferred for better code structure, maintainability, and the ability to handle multiple events efficiently.
 
         const results = []
         // Todo 3.3b When the user presses the submit form button, append the contents of the form to results.
         //          Then, display the content of results
         // Resource: https://stackoverflow.com/questions/11563638/how-do-i-get-the-value-of-text-input-field-using-javascript
+        function submit(e){
+            e.preventDefault()
+           
+            const addfName = document.getElementById("fname").value;
+            const addlName = document.getElementById("lname").value;
+            results.push([addfName, addlName]);
+            console.log(results);
+          
+        }
+        document.getElementById("submitBtn").addEventListener("click",submit);
         
         // Todo 3.5 add event listenders for the grandparent, parent, and child divs. 
         //          When clicked, the grandparent, parent, and child should log "Grandparent", "Parent", and "Child" respectively
@@ -90,11 +108,36 @@
         const child = document.querySelector(".child")
 
         // Checkpoint 3.2 What is event bubbling? How was it shown in Todo 3.5?
-        // Answer: 
+        // Answer: In Todo 3.5, event listeners were added to the grandparent, parent, and child divs. When any of these divs is clicked, the click event undergoes event bubbling, propagating from the clicked child element up through its parent and grandparent elements. The corresponding event handlers log "Grandparent," "Parent," and "Child" for the grandparent, parent, and child divs, respectively, demonstrating the sequence of event propagation in the Document Object Model (DOM). Event bubbling is a mechanism where an event triggered on a specific element is first handled by that element's innermost ancestor and then progressively moves up the DOM hierarchy until it reaches the outermost element.
         
         // Bonus Todo 3.6 Change your code in the previous todo such that "grandparent" is displayed first
 
+        // grandparent.addEventListener("click", e => {
+        //     console.log("grandparent");
+        // }, {capture: true})
+
+        // parent.addEventListener("click", e => {
+        //     console.log("parent");
+        // })
+
+        // child.addEventListener("click", e => {
+        //     console.log("child");
+        // })
+
         // Bonus Todo 3.7 Change your code in the previous todo such that "parent" is never displayed
+        grandparent.addEventListener("click", e => {
+            console.log("grandparent");
+        }, {capture: true})
+
+        parent.addEventListener("click", e => {
+            console.log("parent");
+        })
+
+        child.addEventListener("click", e => {
+            e.stopPropagation();
+            console.log("child");
+        })
+
 
     </script>
 </body>
